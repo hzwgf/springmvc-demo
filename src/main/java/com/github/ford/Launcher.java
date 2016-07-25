@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
 public class Launcher {
 
     private static final String CONTEXT = "/";
-    private static int PORT = 8188;
+    private static int PORT = 8080;
     private static String DEFAULT_WEBAPP_PATH = "src/main/webapp";
     private static Logger logger = LoggerFactory.getLogger(Launcher.class);
 

@@ -31,9 +31,9 @@ public class EchoAction {
     @ResponseBody
     public Response<Serializable> hello(HttpServletRequest request) throws InterruptedException {
         logger.info("req count:"+reqCount.incrementAndGet());
-        synchronized (reqCount){
-            reqCount.wait();
-        }
+//        synchronized (reqCount){
+//            reqCount.wait();
+//        }
         Response<Serializable> response = new Response<Serializable>();
         String data = request.getParameter("data");
         response.setCode(0);
