@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration scan="true" scanPeriod="5 seconds">
+
+
+
+	<property name="LOG_PATH" value="logs/" />
+	<property name="pattern" value="%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread]  %logger{36} - %msg%n" />
+	<contextName>hawk</contextName>
+    <jmxConfigurator/>
+    <!-- direct log messages to stdout -->
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <Target>System.out</Target>
+        <encoder>
+            <pattern>${pattern}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/hawk-all.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">  
+	        <fileNamePattern>${LOG_PATH}/hawk-all-%d{yyyy-MM-dd}.log</fileNamePattern>  
+	        <maxHistory>30</maxHistory>  
+	    </rollingPolicy>
+        <encoder>
+            <pattern>${pattern}</pattern>
+        </encoder>
+    </appender>
+    
+    <appender name="errorFile" class="ch.qos.logback.core.rolling.RollingFileAppender" additivity="false">
+        <file>${LOG_PATH}/hawk-error.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">  
+	        <fileNamePattern>${LOG_PATH}/hawk-error-%d{yyyy-MM-dd}.log</fileNamePattern>  
+	        <maxHistory>30</maxHistory>  
+	    </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <encoder>
+            <pattern>${pattern}</pattern>
+        </encoder>
+    </appender>
+    
+    
+    <logger name="org.eclipse.jetty" level="info"/>
+    <logger name="org.springframework" level="debug"/>
+    <logger name="org.apache.commons.httpclient" level="info"/>
+    <logger name="org.mybatis" level="info"/>
+    <logger name="httpclient.wire.header" level="info"/>
+    <logger name="httpclient.wire.content" level="info"/>
+    <logger name="org.apache.commons.httpclient" level="error"/>
+    
+    <root level="info">
+        <!--<appender-ref ref="errorFile"/>-->
+        <!--<appender-ref ref="file"/>-->
+        <appender-ref ref="stdout"/>
+    </root>
+    
+</configuration>
